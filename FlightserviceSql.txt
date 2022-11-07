@@ -1,0 +1,42 @@
+create database flightmanagement;
+use flightmanagement;
+create table passenger(
+   id int primary key auto_increment,
+   name varchar(50) not null,
+   username varchar(50) not null unique,
+   email varchar(50) not null unique,
+   pass varchar(50) not null,
+   mob int not null unique ,
+   address varchar(50) not null,
+   dob date
+   );
+   create table flight(
+   flightno int primary key auto_increment,
+   flightname varchar(50) not null,
+   flightdesc text not null,
+   flightcap int not null
+   );
+   create table flightschedule(
+   id int primary key auto_increment,
+   flightfrom varchar(50) not null,
+   flightto varchar(50) not null,
+   flightdate date not null,
+   flighttime time not null,
+   cost int not null,
+   flightno int,
+   constraint fk foreign key(flightno) references flight(flightno));
+   
+   create table bookedticket(
+   ticketno int not null unique,
+   dateofbook date,
+   dateoftravel date,
+   flightnum int,
+   constraint fk_book foreign key(flightnum) references flight(flightno),
+   flightfrom varchar(50) not null,
+   flightto varchar(50) not null,
+   flighttime time not null,
+   boardtime time not null,
+   flightseat varchar(50) not null,
+   passid int,
+   constraint fk_bookedticket foreign key(passid) references passenger(id)
+   );
